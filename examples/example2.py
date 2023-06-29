@@ -1,5 +1,6 @@
 import modesolverpy.mode_solver as ms
 import modesolverpy.structure as st
+import modesolverpy.structure_base as stb
 import opticalmaterialspy as mat
 import numpy as np
 
@@ -11,6 +12,7 @@ wg_width = 1.8
 sub_height = 1.0
 sub_width = 4.
 clad_height = 1.0
+
 film_thickness = 1.2
 angle = 60.
 
@@ -29,7 +31,7 @@ struct_xx = struct_func(n_sub, n_wg_xx, n_clad)
 struct_yy = struct_func(n_sub, n_wg_yy, n_clad)
 struct_zz = struct_func(n_sub, n_wg_zz, n_clad)
 
-struct_ani = st.StructureAni(struct_xx, struct_yy, struct_zz)
+struct_ani = stb.StructureAni(struct_xx, struct_yy, struct_zz)
 struct_ani.write_to_file()
 
 solver = ms.ModeSolverFullyVectorial(8)
