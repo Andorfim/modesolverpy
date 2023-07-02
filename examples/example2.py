@@ -3,6 +3,8 @@ import modesolverpy.structure as st
 import modesolverpy.structure_base as stb
 import opticalmaterialspy as mat
 import numpy as np
+import timeit
+
 
 wl = 1.55
 x_step = 0.06
@@ -18,8 +20,8 @@ angle = 60.
 
 def struct_func(n_sub, n_wg, n_clad):
     return st.RidgeWaveguide(wl, x_step, y_step, wg_height, wg_width,
-                             sub_height, sub_width, clad_height,
-                             n_sub, n_wg, angle, n_clad, film_thickness)
+                            sub_height, sub_width, clad_height,
+                            n_sub, n_wg, angle, n_clad, film_thickness)
 
 n_sub = mat.SiO2().n(wl)
 n_wg_xx = mat.Ktp('x').n(wl)

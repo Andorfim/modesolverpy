@@ -22,34 +22,38 @@ def _overlap(mode, gaussian):
         (np.sum(np.abs(mode_1)**2) * np.sum(np.abs(mode_2)**2))
     return eta
 
-def reflection(n1, n2):
-    '''
-    Calculate the power reflection at the interface
-    of two refractive index materials.
+reflection = lambda n1, n2: abs((n1-n2) / (n1+n2))**2
 
-    Args:
-        n1 (float): Refractive index of material 1.
-        n2 (float): Refractive index of material 2.
+# def reflection(n1, n2):
+#     '''
+#     Calculate the power reflection at the interface
+#     of two refractive index materials.
 
-    Returns:
-        float: The percentage of reflected power.
-    '''
-    r = abs((n1-n2) / (n1+n2))**2
-    return r
+#     Args:
+#         n1 (float): Refractive index of material 1.
+#         n2 (float): Refractive index of material 2.
 
-def transmission(n1, n2):
-    '''
-    Calculate the power transmission at the interface
-    of two refractive index materials.
+#     Returns:
+#         float: The percentage of reflected power.
+#     '''
+#     r = abs((n1-n2) / (n1+n2))**2
+#     return r
 
-    Args:
-        n1 (float): Refractive index of material 1.
-        n2 (float): Refractive index of material 2.
+# def transmission(n1, n2):
+#     '''
+#     Calculate the power transmission at the interface
+#     of two refractive index materials.
 
-    Returns:
-        float: The percentage of transmitted power.
-    '''
-    return 1-reflection(n1, n2)
+#     Args:
+#         n1 (float): Refractive index of material 1.
+#         n2 (float): Refractive index of material 2.
+
+#     Returns:
+#         float: The percentage of transmitted power.
+#     '''
+#     return 1-reflection(n1, n2)
+
+transmission = lambda n1, n2: 1-reflection(n1, n2)
 
 def coupling_efficiency(mode_solver, fibre_mfd,
                         fibre_offset_x=0, fibre_offset_y=0,

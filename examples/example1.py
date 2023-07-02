@@ -3,8 +3,8 @@ import modesolverpy.structure as st
 import numpy as np
 
 # All units are relative.  [um] were chosen in this case.
-x_step = 0.02
-y_step = 0.02
+x_step = 0.015
+y_step = 0.015
 wg_height = 0.4
 wg_width = 0.5
 sub_height = 0.5

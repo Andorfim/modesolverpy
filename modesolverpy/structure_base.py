@@ -283,7 +283,7 @@ class _AbstractStructure(with_metaclass(abc.ABCMeta)):
                 plt.savefig(filename_image)
             else:
                 gp.gnuplot(path+'structure.gpi', args)
-
+                
     def __str__(self):
         return self.n.__str__()
 
@@ -583,7 +583,7 @@ class StructureAni():
     @property
     def y_step(self):
         return self.xx.y_step
-
+    
     @property
     def x_pts(self):
         return int((self.xx.x_max - self.xx.x_min) / self.xx.x_step + 1)

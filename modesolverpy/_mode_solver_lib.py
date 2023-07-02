@@ -19,15 +19,11 @@ import scipy.optimize
 
 import collections as col
 
-def trapz2(f, x=None, y=None, dx=1.0, dy=1.0):
-    """Double integrate."""
-    return numpy.trapz(numpy.trapz(f, x=y, dx=dy), x=x, dx=dx)
+trapz2 = lambda f, x=None, y=None, dx=1.0, dy=1.0: numpy.trapz(numpy.trapz(f, x=y, dx=dy), x=x, dx=dx)
 
-def centered1d(x):
-    return (x[1:] + x[:-1]) / 2.
+centered1d = lambda x: (x[1:] + x[:-1]) / 2.
 
-def centered2d(x):
-    return (x[1:, 1:] + x[1:, :-1] + x[:-1, 1:] + x[:-1, :-1]) / 4.
+centered2d = lambda x: (x[1:, 1:] + x[1:, :-1] + x[:-1, 1:] + x[:-1, :-1]) / 4.
 
 class _ModeSolverSemiVectorial():
     """
