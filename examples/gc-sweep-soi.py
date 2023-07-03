@@ -1,8 +1,11 @@
 import modesolverpy.mode_solver as ms
 import modesolverpy.structure as st
+import modesolverpy.structure_base as stb
 import modesolverpy.design as de
 import opticalmaterialspy as mat
 import numpy as np
+import timeit
+import ctypes 
 
 wls = [1.5, 1.55, 1.6]
 x_step = 0.05
@@ -42,7 +45,7 @@ for wl in wls:
         struct_yy = struct_func(n_sub, n_wg_yy, n_clad)
         struct_zz = struct_func(n_sub, n_wg_zz, n_clad)
 
-        struct_ani = st.StructureAni(struct_xx, struct_yy, struct_zz)
+        struct_ani = stb.StructureAni(struct_xx, struct_yy, struct_zz)
         #struct_ani.write_to_file()
 
         solver = ms.ModeSolverFullyVectorial(4)
@@ -53,9 +56,15 @@ for wl in wls:
             ngc.append(np.round(np.real(solver.n_effs_te), 4)[0])
         elif polarisation == 'TM':
             ngc.append(np.round(np.real(solver.n_effs_tm), 4)[0])
+    
+    def func():
+        # period = de.grating_coupler_period(wl, dcs*ngc[0]+(1-dcs)*ngc[1], n_clad, 8, 1)
+        lib = ctypes.CDLL('.CPP_library/design.cpp/libexample.so')
+        period = lib.grating_coupler_period(wl, dcs*ngc[0]+(1-dcs)*ngc[1], n_clad, 8, 1)
+        periods.append(period)
 
-    period = de.grating_coupler_period(wl, dcs*ngc[0]+(1-dcs)*ngc[1], n_clad, 8, 1)
-    periods.append(period)
+    time = timeit.timeit(func, number=1)
+    print('time:', time)
 
 filename = 'gc-sweep-%s-%inm-etch-%i-film.dat' % (polarisation, etch_depth*1000, film_thickness*1000)
 np.savetxt(filename, np.array(periods).T, delimiter=',', header=','.join([str(val) for val in wls]))
