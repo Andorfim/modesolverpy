@@ -82,7 +82,7 @@ extern "C" {
             int sgn_1 = -1;
             int sgn_2 = -1;
         }
-        
+
         float k_qpm = k_pmp - k_idl * sgn_1 - k_sig * sgn_2;
         float l_qpm = pi2 / k_qpm;
         return l_qpm;

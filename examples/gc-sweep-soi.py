@@ -58,9 +58,10 @@ for wl in wls:
             ngc.append(np.round(np.real(solver.n_effs_tm), 4)[0])
     
     def func():
-        # period = de.grating_coupler_period(wl, dcs*ngc[0]+(1-dcs)*ngc[1], n_clad, 8, 1)
-        lib = ctypes.CDLL('.CPP_library/design.cpp/libexample.so')
-        period = lib.grating_coupler_period(wl, dcs*ngc[0]+(1-dcs)*ngc[1], n_clad, 8, 1)
+        period = de.grating_coupler_period(wl, dcs*ngc[0]+(1-dcs)*ngc[1], n_clad, 8, 1)
+        print(dcs*ngc[0]+(1-dcs)*ngc[1])
+        # lib = ctypes.CDLL('/Users/andrejefimov/projects/modesolverpy/libexample.so')
+        # period = lib.grating_coupler_period(float(wl), dcs*ngc[0]+(1-dcs)*ngc[1], float(n_clad), int(8), int(1))
         periods.append(period)
 
     time = timeit.timeit(func, number=1)
